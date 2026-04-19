@@ -1,6 +1,9 @@
 import { Stack } from "@mui/material"
 import macOSWall from '../../assets/macOSWall.jpg'
 import MacOSNav from "../MacOSNav/MacOSNav"
+import { useSelector } from "react-redux"
+import type { RootState } from "../../store/Store"
+import StatusBarPanel from "../StatusBar/StatusBarPenel"
 const styles = {
     root: {
         width: "100vw",
@@ -14,11 +17,16 @@ const styles = {
         overflow: "hidden",
     }
 }
-const MacOSWall =()=>{
-    return(
+const MacOSWall = () => {
+    const statusBarPanel = useSelector((state: RootState) => state.statusbar.statusPanel)
+    return (
         <Stack sx={styles.root}>
             <MacOSNav />
+            {
+                statusBarPanel && <StatusBarPanel />
+            }
         </Stack>
+
     )
 }
 export default MacOSWall

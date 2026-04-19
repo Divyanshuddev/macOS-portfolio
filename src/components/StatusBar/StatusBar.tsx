@@ -5,6 +5,8 @@ import FlightOutlinedIcon from '@mui/icons-material/FlightOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setStatusBarPanel } from "../../features/StatusBarSlice/StatusBarSlice";
 const styles = {
     root: {
         display: "flex",
@@ -16,6 +18,7 @@ const styles = {
     }
 }
 const StatusBar = () => {
+    const dispatch= useDispatch()
     const [time, setTime] = useState("");
     const getCurrentDateTime = () => {
         const now = new Date();
@@ -38,7 +41,7 @@ const StatusBar = () => {
         return () => clearInterval(interval);
     }, []);
     return (
-        <Stack sx={styles.root} direction={'row'} spacing={2} component={'button'}>
+        <Stack sx={styles.root} direction={'row'} spacing={2} component={'button'} onClick={()=>dispatch(setStatusBarPanel())}>
             <Stack sx={{ display: "flex", alignItems: "center" }} direction={'row'} spacing={0.5}>
                 <Typography sx={{ color: "white", fontSize: 13 }}>
                     90%
