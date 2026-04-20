@@ -5,8 +5,12 @@ import FlightOutlinedIcon from '@mui/icons-material/FlightOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setStatusBarPanel } from "../../features/StatusBarSlice/StatusBarSlice";
+import type { RootState } from "../../store/Store";
+import BluetoothOutlinedIcon from '@mui/icons-material/BluetoothOutlined';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+
 const styles = {
     root: {
         display: "flex",
@@ -18,7 +22,7 @@ const styles = {
     }
 }
 const StatusBar = () => {
-    const dispatch= useDispatch()
+    const dispatch = useDispatch()
     const [time, setTime] = useState("");
     const getCurrentDateTime = () => {
         const now = new Date();
@@ -40,17 +44,23 @@ const StatusBar = () => {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
+    const wifi = useSelector((state: RootState) => state.statusbar.wifi)
+    const bluetooth = useSelector((state: RootState) => state.statusbar.bluetooth)
+     const volume=useSelector((state:RootState)=>state.statusbar.volume)
     return (
-        <Stack sx={styles.root} direction={'row'} spacing={2} component={'button'} onClick={()=>dispatch(setStatusBarPanel())}>
+        <Stack sx={styles.root} direction={'row'} spacing={2} component={'button'} onClick={() => dispatch(setStatusBarPanel())}>
             <Stack sx={{ display: "flex", alignItems: "center" }} direction={'row'} spacing={0.5}>
                 <Typography sx={{ color: "white", fontSize: 13 }}>
                     90%
                 </Typography>
                 <Battery90OutlinedIcon sx={{ color: "white", rotate: "90deg" }} fontSize="medium" />
             </Stack>
-            <NetworkWifiOutlinedIcon sx={{ color: "white" }} fontSize="small" />
+            <NetworkWifiOutlinedIcon sx={{ color: "white", display: wifi ? "" : "none" }} fontSize="small" />
+            <FlightOutlinedIcon sx={{ color: "white", display: wifi ? "none" : "" }} fontSize="small" />
+            <BluetoothOutlinedIcon sx={{ color: "white", display: bluetooth ? "" : "none" }} fontSize="small" />
             <SearchOutlinedIcon sx={{ color: "white" }} fontSize="small" />
-            <VolumeUpOutlinedIcon sx={{ color: "white" }} fontSize="small" />
+            <VolumeUpOutlinedIcon sx={{ color: "white",display: volume ? "" : "none" }} fontSize="small" />
+            <VolumeOffIcon sx={{ color: "white",display: volume ? "none" : ""  }} fontSize="small" />
             <Typography sx={{ color: "white", fontSize: 14 }}>{time}</Typography>
         </Stack>
     )
