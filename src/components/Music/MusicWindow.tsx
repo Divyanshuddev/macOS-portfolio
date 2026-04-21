@@ -1,9 +1,10 @@
 import { Divider, Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Header from "./Header"
 import Music from "./Music"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "20vw", height: "50vh" }
 interface MusicWindowProps {
     id: number
@@ -13,6 +14,7 @@ interface MusicWindowProps {
 }
 const MusicWindow = ({ id, zIndex, bringToFront, defaultPosition }: MusicWindowProps) => {
     const dispatch = useDispatch()
+    const mini=useSelector((state:RootState)=>state.window.mmusicWindow)
     const headerRef = useRef<HTMLDivElement>(null)
 
     const [isMaximized, setIsMaximized] = useState(false)
@@ -130,7 +132,8 @@ const MusicWindow = ({ id, zIndex, bringToFront, defaultPosition }: MusicWindowP
                 userSelect: "none",
                 zIndex,
                 flexDirection: "column",
-                borderRadius: 4
+                borderRadius: 4,
+                display:mini?"none":""
             }}
         >
             <Stack

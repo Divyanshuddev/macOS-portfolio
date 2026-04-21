@@ -1,11 +1,12 @@
-import { Stack, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import * as motion from "motion/react-client";
 import { useDispatch } from "react-redux";
-import { closeWindow } from "../../features/WindowSlice/WindowSlice";
+import { closeWindow, minimizedWindow } from "../../features/WindowSlice/WindowSlice";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 const MotionDiv = motion.div;
+import downloadIcon from "../../assets/downloadResume.png"
 
 const styles = {
   root: {
@@ -63,7 +64,7 @@ const Header = ({ toggleResize }: HeaderProps) => {
             <CloseRoundedIcon sx={styles.icon} style={{ paddingTop: 2.5 }} />
           </MotionDiv>
         </Stack>
-        <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#febc2e" }}>
+        <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#febc2e" }} onClick={()=>dispatch(minimizedWindow('Resume'))}>
           <MotionDiv
             variants={{
               rest: { opacity: 0, scale: 0.5 },
@@ -90,7 +91,11 @@ const Header = ({ toggleResize }: HeaderProps) => {
         </Stack>
       </Stack>
       <Typography>Resume</Typography>
-      <Stack sx={{ width: 100 }} />
+      <Tooltip title={"Download Resume"}>
+        <IconButton onClick={()=> window.open('https://drive.google.com/file/d/1DHnYxWIXCfEaSc4k-QlTQpowC01FokBa/view?usp=sharing','_blank')}>
+          <Box component={'img'} src={downloadIcon} sx={{width:20,height:20}} />
+        </IconButton>
+        </Tooltip>
     </Stack>
   );
 };

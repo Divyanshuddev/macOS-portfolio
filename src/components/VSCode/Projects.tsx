@@ -121,7 +121,6 @@ const Projects = () => {
             width: "80%",
             boxSizing: "border-box",
             paddingLeft: 6
-            // textAlign: "center"
         },
         button: {
             textTransform: "capitalize",

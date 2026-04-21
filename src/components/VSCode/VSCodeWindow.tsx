@@ -1,10 +1,11 @@
 import {  Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
 import Header from "./Header"
 import FileBar from "./FileBar"
 import VSCode from "./VSCode"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "70vw", height: "80vh" }
 interface VSCodeWindowProps{
       id: number
@@ -14,6 +15,7 @@ interface VSCodeWindowProps{
 }
 const VSCodeWindow =({id,zIndex,bringToFront,defaultPosition}:VSCodeWindowProps)=>{
     const dispatch = useDispatch()
+    const mini=useSelector((state:RootState)=>state.window.mvscodeWindow)
     const headerRef = useRef<HTMLDivElement>(null)
 
     const [isMaximized, setIsMaximized] = useState(false)
@@ -132,7 +134,8 @@ const VSCodeWindow =({id,zIndex,bringToFront,defaultPosition}:VSCodeWindowProps)
                 userSelect: "none",
                 zIndex,
                 flexDirection: "column",
-                borderRadius:4
+                borderRadius:4,
+                display:mini?"none":""
             }}
         >
             <Stack

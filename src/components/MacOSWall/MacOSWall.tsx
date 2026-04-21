@@ -12,6 +12,7 @@ import TerminalWindow from "../Terminal/TerminalWindow"
 import VideosWindow from "../Videos/VideosWindow"
 import ResumeWindow from "../Resume/ResumeWindow"
 import VSCodeWindow from "../VSCode/VSCodeWindow"
+import FinderWindow from "../Finder/FinderWindow"
 const styles = {
     root: {
         width: "100vw",
@@ -42,6 +43,7 @@ const MacOSWall = () => {
       const videosWindow = useSelector((state:RootState)=>state.window.videoWindow)
       const resumeWindow = useSelector((state:RootState)=>state.window.resumeWindow)
       const vscodeWindow = useSelector((state:RootState)=>state.window.vscodeWindow)
+      const finder =useSelector((state:RootState)=>state.window.finder)
     return (
         <Stack sx={styles.root}>
             <MacOSNav />
@@ -95,6 +97,14 @@ const MacOSWall = () => {
                 zIndex={zOrder.indexOf(6) + 1}
                 bringToFront={bringToFront}
                 defaultPosition={getWindowPosition(0)}
+                />
+            }
+            {
+                finder && <FinderWindow 
+                 id={7}
+                zIndex={zOrder.indexOf(7) + 1}
+                bringToFront={bringToFront}
+                defaultPosition={getWindowPosition(2)}
                 />
             }
         </Stack>

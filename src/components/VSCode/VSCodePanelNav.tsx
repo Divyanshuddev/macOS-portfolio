@@ -9,10 +9,6 @@ import jsIcon from '../../assets/js.png'
 import htmlIcon from '../../assets/html.png'
 import cssIcon from '../../assets/css.png'
 import { setCurrentTab } from "../../features/WindowSlice/WindowSlice";
-// interface ProjectPanelNavProps {
-//     title: string;
-//     icon: string;
-// }
 const data = [
     {
         title: "home.tsx",
@@ -52,7 +48,6 @@ const VSCodePanelNav = () => {
             alignItems: "center",
             justifyContent: "space-between",
             backgroundColor: "#1f1f1f",
-            // borderTop: "2px solid #1976d2",
             paddingLeft: 1,
             border:"none"
         },

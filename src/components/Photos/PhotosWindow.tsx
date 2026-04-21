@@ -1,9 +1,10 @@
 import {  Divider, Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
 import Header from "./Header"
 import Photos from "./Photos"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "50vw", height: "70vh" }
 interface PhotosWindowProps{
       id: number
@@ -12,9 +13,9 @@ interface PhotosWindowProps{
     defaultPosition: { top: number; left: number }
 }
 const PhotosWindow =({id,zIndex,bringToFront,defaultPosition}:PhotosWindowProps)=>{
+    const mini=useSelector((state:RootState)=>state.window.mphotosWindow)
     const dispatch = useDispatch()
     const headerRef = useRef<HTMLDivElement>(null)
-
     const [isMaximized, setIsMaximized] = useState(false)
 
     const [position, setPosition] = useState({
@@ -131,7 +132,8 @@ const PhotosWindow =({id,zIndex,bringToFront,defaultPosition}:PhotosWindowProps)
                 userSelect: "none",
                 zIndex,
                 flexDirection: "column",
-                borderRadius:4
+                borderRadius:4,
+                display:mini?"none":""
             }}
         >
             <Stack

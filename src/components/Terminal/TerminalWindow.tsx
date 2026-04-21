@@ -1,9 +1,10 @@
-import {  Divider, Stack } from "@mui/material"
+import {   Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
 import Header from "./Header"
 import Terminal from "./Terminal"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "50vw", height: "60vh" }
 interface TerminalWindowProps{
       id: number
@@ -13,6 +14,7 @@ interface TerminalWindowProps{
 }
 const TerminalWindow =({id,zIndex,bringToFront,defaultPosition}:TerminalWindowProps)=>{
     const dispatch = useDispatch()
+    const mini=useSelector((state:RootState)=>state.window.mterminalWindow)
     const headerRef = useRef<HTMLDivElement>(null)
 
     const [isMaximized, setIsMaximized] = useState(false)
@@ -131,7 +133,8 @@ const TerminalWindow =({id,zIndex,bringToFront,defaultPosition}:TerminalWindowPr
                 userSelect: "none",
                 zIndex,
                 flexDirection: "column",
-                borderRadius:4
+                borderRadius:4,
+                display:mini?"none":""
             }}
         >
             <Stack
@@ -147,7 +150,6 @@ const TerminalWindow =({id,zIndex,bringToFront,defaultPosition}:TerminalWindowPr
                 <Header toggleResize={toggleResize} />
             </Stack>
             <Stack sx={{ flexGrow: 1 }}>
-                {/* <Divider /> */}
                 <Terminal />
             </Stack>
         </Stack>

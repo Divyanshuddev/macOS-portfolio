@@ -7,39 +7,10 @@ import videoPlayerIcon from '../../assets/video-player.webp'
 import resumeIcon from '../../assets/resume.webp'
 import terminalIcon from '../../assets/terminal.png'
 import * as motion from "motion/react-client"
-import { useDispatch } from "react-redux"
-import { openWindow } from "../../features/WindowSlice/WindowSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { offminimizedWindow, openWindow, setFinder } from "../../features/WindowSlice/WindowSlice"
+import type { RootState } from "../../store/Store"
 
-const data = [
-    {
-        title: "Finder",
-        icon: finderIcon,
-    },
-    {
-        title: "Photos",
-        icon: imageViewerIcon,
-    },
-    {
-        title: "Music",
-        icon: musicIcon,
-    },
-    {
-        title: "VS Code",
-        icon: vscodeIcon,
-    },
-    {
-        title: "Terminal",
-        icon: terminalIcon,
-    },
-    {
-        title: "Videos",
-        icon: videoPlayerIcon,
-    },
-    {
-        title: "Resume",
-        icon: resumeIcon,
-    },
-]
 const styles = {
     root: {
         position: "absolute",
@@ -63,26 +34,138 @@ const styles = {
         width: 50,
         height: 50,
         objectFit: "contain"
+    },
+    dot: {
+        width: 7,
+        height: 7,
+        borderRadius: "50%",
+        alignSelf: "center"
     }
 
 }
 const MacOSTaskBar = () => {
     const dispatch = useDispatch()
+    const mphotosWindow = useSelector((state: RootState) => state.window.mphotosWindow)
+    const mmusicWindow = useSelector((state: RootState) => state.window.mmusicWindow)
+    const mterminalWindow = useSelector((state: RootState) => state.window.mterminalWindow)
+    const mvideosWindow = useSelector((state: RootState) => state.window.mvideoWindow)
+    const mresumeWindow = useSelector((state: RootState) => state.window.mresumeWindow)
+    const mvscodeWindow = useSelector((state: RootState) => state.window.mvscodeWindow)
+    const handleWindow = (title: string) => {
+        switch (title) {
+            case 'Photos':
+                if (mphotosWindow) {
+                    dispatch(offminimizedWindow(title))
+                }
+                else {
+                    dispatch(openWindow('Photos'))
+                }
+                return
+            case 'Music':
+                if (mmusicWindow) {
+                    dispatch(offminimizedWindow(title))
+                }
+                else {
+                    dispatch(openWindow('Music'))
+                }
+                return
+            case 'VS Code':
+                if (mvscodeWindow) {
+                    dispatch(offminimizedWindow(title))
+                }
+                else {
+                    dispatch(openWindow('VS Code'))
+                }
+                return
+            case 'Terminal':
+                if (mterminalWindow) {
+                    dispatch(offminimizedWindow(title))
+                }
+                else {
+                    dispatch(openWindow('Terminal'))
+                }
+                return
+            case 'Resume':
+                if (mresumeWindow) {
+                    dispatch(offminimizedWindow(title))
+                }
+                else {
+                    dispatch(openWindow('Resume'))
+                }
+                return
+            case 'Videos':
+                if (mvideosWindow) {
+                    dispatch(offminimizedWindow(title))
+                }
+                else {
+                    dispatch(openWindow('Videos'))
+                }
+                return
+            case 'Finder':
+                dispatch(setFinder())
+                return
+            default:
+                return
+        }
+    }
     return (
         <Stack sx={styles.root} direction={'row'}>
-            {
-                data.map((value, index) => {
-                    return (
-                        <Stack key={index} sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => dispatch(openWindow(value.title))}>
-                            <motion.img
-                                whileHover={{ scale: 2, y: -18 }}
-                                whileTap={{ scale: 0.95 }}
-                                src={value.icon}
-                                style={{ width: 50, height: 50 }} />
-                        </Stack>
-                    )
-                })
-            }
+            <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('Finder')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={finderIcon}
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:"transparent"}} />
+            </Stack>
+             <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('Photos')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={imageViewerIcon}
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:mphotosWindow?"white":"transparent"}} />
+            </Stack>
+             <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('Music')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={musicIcon }
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:mmusicWindow?"white":"transparent"}} />
+            </Stack>
+             <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('VS Code')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={vscodeIcon}
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:mvscodeWindow?"white":"transparent"}} />
+            </Stack>
+             <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('Terminal')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={terminalIcon}
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:mterminalWindow?"white":"transparent"}} />
+            </Stack>
+             <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('Videos')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={videoPlayerIcon}
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:mvideosWindow?"white":"transparent"}} />
+            </Stack>
+             <Stack sx={{ background: "transparent", border: "none", }} component={'button'} onClick={() => handleWindow('Resume')}>
+                <motion.img
+                    whileHover={{ scale: 2, y: -18 }}
+                    whileTap={{ scale: 0.95 }}
+                    src={resumeIcon}
+                    style={{ width: 50, height: 50 }} />
+                <Stack sx={styles.dot} style={{backgroundColor:mresumeWindow?"white":"transparent"}} />
+            </Stack>
         </Stack>
     )
 }

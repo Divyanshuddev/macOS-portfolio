@@ -6,7 +6,6 @@ import Explorer from "./Explorer"
 
 const SideBarDisplay = () => {
     const isMaximized = useSelector((state: RootState) => state.windowresize.isMaximized)
-    // const selectedMenuBar = useSelector((state: RootState) => state.projects.selectedMenuBar)
     const styles = {
         root: {
             width: "14vw",

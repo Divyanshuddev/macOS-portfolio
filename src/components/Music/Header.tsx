@@ -3,7 +3,7 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import * as motion from "motion/react-client";
 import { useDispatch } from "react-redux";
-import { closeWindow } from "../../features/WindowSlice/WindowSlice";
+import { closeWindow, minimizedWindow } from "../../features/WindowSlice/WindowSlice";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 const MotionDiv = motion.div;
 const styles = {
@@ -62,7 +62,7 @@ const Header = ({ toggleResize }: HeaderProps) => {
             <CloseRoundedIcon sx={styles.icon} style={{ paddingTop: 2.5 }} />
           </MotionDiv>
         </Stack>
-        <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#febc2e" }}>
+        <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#febc2e" }} onClick={()=>dispatch(minimizedWindow('Music'))}>
           <MotionDiv
             variants={{
               rest: { opacity: 0, scale: 0.5 },

@@ -1,9 +1,10 @@
 import {   Divider, Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
 import Header from "./Header"
 import Videos from "./Videos"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "50vw", height: "70vh" }
 interface VideosWindowProps{
       id: number
@@ -13,6 +14,7 @@ interface VideosWindowProps{
 }
 const VideosWindow =({id,zIndex,bringToFront,defaultPosition}:VideosWindowProps)=>{
     const dispatch = useDispatch()
+    const mini=useSelector((state:RootState)=>state.window.mvideoWindow)
     const headerRef = useRef<HTMLDivElement>(null)
 
     const [isMaximized, setIsMaximized] = useState(false)
@@ -131,7 +133,8 @@ const VideosWindow =({id,zIndex,bringToFront,defaultPosition}:VideosWindowProps)
                 userSelect: "none",
                 zIndex,
                 flexDirection: "column",
-                borderRadius:4
+                borderRadius:4,
+                display:mini?"none":""
             }}
         >
             <Stack
@@ -148,7 +151,6 @@ const VideosWindow =({id,zIndex,bringToFront,defaultPosition}:VideosWindowProps)
             </Stack>
             <Stack sx={{ flexGrow: 1 }}>
                 <Divider />
-                {/* <Photos /> */}
                 <Videos />
             </Stack>
         </Stack>

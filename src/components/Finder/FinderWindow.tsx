@@ -1,22 +1,18 @@
-import {  Divider, Stack } from "@mui/material"
+import { Button, Divider, Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
-import Header from "./Header"
-import Resume from "./Resume"
-import type { RootState } from "../../store/Store"
+import Finder from "./Finder"
 const DEFAULT_SIZE = { width: "50vw", height: "70vh" }
-interface ResumeWindowProps{
-      id: number
+interface FinderWindowProps {
+    id: number
     zIndex: number
     bringToFront: (id: number) => void
     defaultPosition: { top: number; left: number }
 }
-const ResumeWindow =({id,zIndex,bringToFront,defaultPosition}:ResumeWindowProps)=>{
+const FinderWindow = ({ id, zIndex, bringToFront, defaultPosition }: FinderWindowProps) => {
     const dispatch = useDispatch()
-    const mini=useSelector((state:RootState)=>state.window.mresumeWindow)
     const headerRef = useRef<HTMLDivElement>(null)
-
     const [isMaximized, setIsMaximized] = useState(false)
 
     const [position, setPosition] = useState({
@@ -118,7 +114,7 @@ const ResumeWindow =({id,zIndex,bringToFront,defaultPosition}:ResumeWindowProps)
             window.removeEventListener("mouseup", onMouseUp)
         }
     }, [isMaximized, position.x, position.y])
-    return(
+    return (
         <Stack
             onClick={() => bringToFront(id)}
             sx={{
@@ -128,32 +124,24 @@ const ResumeWindow =({id,zIndex,bringToFront,defaultPosition}:ResumeWindowProps)
                 width: isMaximized ? "100vw" : size.width,
                 height: isMaximized ? "97vh" : size.height,
                 backgroundColor: "white",
-                boxShadow: 5,
                 overflow: "hidden",
                 userSelect: "none",
                 zIndex,
                 flexDirection: "column",
-                borderRadius:4,
-                display:mini?"none":""
+                borderRadius: 4,
+                background: 'rgba(255, 255, 255, 0.31)',
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(5px)",
+                "-webkit-backdrop-filter": "blur(5px)",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
             }}
         >
-            <Stack
-                ref={headerRef}
-                sx={{
-                    height: 34,
-                    background: "white",
-                    cursor: isMaximized ? "default" : "move",
-                    justifyContent: "center",
-                    px: 1
-                }}
-            >
-                <Header toggleResize={toggleResize} />
-            </Stack>
             <Stack sx={{ flexGrow: 1 }}>
                 <Divider />
-                <Resume />
+                <Button sx={{display:"none"}} onClick={()=>toggleResize()} disabled></Button>
+                <Finder />
             </Stack>
         </Stack>
     )
 }
-export default ResumeWindow
+export default FinderWindow

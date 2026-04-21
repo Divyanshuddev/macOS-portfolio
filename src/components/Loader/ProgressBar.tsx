@@ -21,7 +21,6 @@ export default function ProgressBar() {
 
 const styles = {
   container: {
-    // height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -30,11 +29,11 @@ const styles = {
 
   outerTube: {
     width: "400px",
-    height: "10px", // 🔥 thick cylindrical feel
+    height: "10px", 
     borderRadius: "50px",
     padding: "1px",
     background: "rgba(255,255,255,0.1)",
-    boxShadow: "0 0 5px rgba(255,255,255,0.3)", // glow border
+    boxShadow: "0 0 5px rgba(255,255,255,0.3)", 
     overflow: "hidden",
   },
 

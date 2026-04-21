@@ -133,7 +133,7 @@ const MacOSMenuBar = () => {
             {
                 menuBar.map((value, index) => {
                     return (
-                        <Button key={index} size="small" sx={styles.button} aria-haspopup="true" onClick={(e) => handleClick(e, value.items)}>
+                        <Button key={index} size="small" sx={styles.button} style={{fontWeight:value.label==="Finder"?"bold":""}} aria-haspopup="true" onClick={(e) => handleClick(e, value.items)}>
                             {value.label}
                         </Button>
                     )
