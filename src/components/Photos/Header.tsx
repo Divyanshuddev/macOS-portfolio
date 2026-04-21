@@ -11,13 +11,13 @@ const styles = {
   root: {
     display: "flex",
     alignItems: "center",
-    justifyContent:"space-between",
+    justifyContent: "space-between",
     boxSizing: "border-box",
   },
-  closeOpenBar:{
-      display: "flex",
+  closeOpenBar: {
+    display: "flex",
     alignItems: "center",
-     boxSizing: "border-box",
+    boxSizing: "border-box",
   },
   button: {
     width: 16,
@@ -27,71 +27,70 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    border:"none"
+    border: "none"
   },
   icon: {
     width: 11,
     height: 11,
-    boxSizing:"border-box"
+    boxSizing: "border-box"
   },
 };
 
 interface HeaderProps {
   toggleResize: () => void;
 }
-
 const Header = ({ toggleResize }: HeaderProps) => {
   const dispatch = useDispatch()
   return (
-    <Stack sx={styles.root}  direction="row">
-    <Stack
-      sx={styles.closeOpenBar}
-      direction="row"
-      spacing={1}
-      component={motion.div}
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
-    >
-      <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#ff5f57" }} onClick={()=>dispatch(closeWindow('Photos'))}>
-        <MotionDiv
-          variants={{
-            rest: { opacity: 0, scale: 0.5, y: 0 },
-            hover: { opacity: 1, scale: 1, y: -1 },
-          }}
-          transition={{ duration: 0.15 }}
-        >
-          <CloseRoundedIcon sx={styles.icon} style={{paddingTop:2.5}} />
-        </MotionDiv>
-      </Stack>
-      <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#febc2e" }}>
-        <MotionDiv
-          variants={{
-            rest: { opacity: 0, scale: 0.5 },
-            hover: { opacity: 1, scale: 1 },
-          }}
-          transition={{ duration: 0.15 }}
-        >
-          <MinimizeIcon sx={styles.icon} />
-        </MotionDiv>
-      </Stack>
-      <Stack component={'button'}
-        sx={{ ...styles.button, backgroundColor: "#28c840" }}
-        onClick={toggleResize}
+    <Stack sx={styles.root} direction="row">
+      <Stack
+        sx={styles.closeOpenBar}
+        direction="row"
+        spacing={1}
+        component={motion.div}
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
       >
-        <MotionDiv
-          variants={{
-            rest: { opacity: 0, scale: 0.5 },
-            hover: { opacity: 1, scale: 1 },
-          }}
-          transition={{ duration: 0.15 }}
+        <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#ff5f57" }} onClick={() => dispatch(closeWindow('Photos'))}>
+          <MotionDiv
+            variants={{
+              rest: { opacity: 0, scale: 0.5, y: 0 },
+              hover: { opacity: 1, scale: 1, y: -1 },
+            }}
+            transition={{ duration: 0.15 }}
+          >
+            <CloseRoundedIcon sx={styles.icon} style={{ paddingTop: 2.5 }} />
+          </MotionDiv>
+        </Stack>
+        <Stack component={'button'} sx={{ ...styles.button, backgroundColor: "#febc2e" }}>
+          <MotionDiv
+            variants={{
+              rest: { opacity: 0, scale: 0.5 },
+              hover: { opacity: 1, scale: 1 },
+            }}
+            transition={{ duration: 0.15 }}
+          >
+            <MinimizeIcon sx={styles.icon} />
+          </MotionDiv>
+        </Stack>
+        <Stack component={'button'}
+          sx={{ ...styles.button, backgroundColor: "#28c840" }}
+          onClick={toggleResize}
         >
-          <OpenInFullRoundedIcon sx={styles.icon} />
-        </MotionDiv>
+          <MotionDiv
+            variants={{
+              rest: { opacity: 0, scale: 0.5 },
+              hover: { opacity: 1, scale: 1 },
+            }}
+            transition={{ duration: 0.15 }}
+          >
+            <OpenInFullRoundedIcon sx={styles.icon} />
+          </MotionDiv>
+        </Stack>
       </Stack>
-    </Stack>
-    <Typography>Photos</Typography>
-    <Stack sx={{width:100}} />
+      <Typography>Photos</Typography>
+      <Stack sx={{ width: 100 }} />
     </Stack>
   );
 };

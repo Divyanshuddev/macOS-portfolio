@@ -27,6 +27,15 @@ export const windowSlice=createSlice({
                 case "Photos":
                     state.photosWindow=true
                     return
+                case "Music":
+                    state.musicWindow=true
+                    return
+                case "Terminal":
+                    state.terminalWindow=true
+                    return
+                case "Videos":
+                    state.videoWindow=true
+                    return
                 default:
                     return
             }
@@ -35,6 +44,15 @@ export const windowSlice=createSlice({
             switch(action.payload){
                 case "Photos":
                     state.photosWindow=false
+                    return
+                case "Music":
+                    state.musicWindow=false
+                    return
+                case "Terminal":
+                    state.terminalWindow=false
+                    return
+                case "Videos":
+                    state.videoWindow=false
                     return
                 default:
                     return

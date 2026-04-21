@@ -5,8 +5,11 @@ import { useSelector } from "react-redux"
 import type { RootState } from "../../store/Store"
 import StatusBarPanel from "../StatusBar/StatusBarPenel"
 import MacOSTaskBar from "../MacOSTaskBar/MacOSTaskBar"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import PhotosWindow from "../Photos/PhotosWindow"
+import MusicWindow from "../Music/MusicWindow"
+import TerminalWindow from "../Terminal/TerminalWindow"
+import VideosWindow from "../Videos/VideosWindow"
 const styles = {
     root: {
         width: "100vw",
@@ -21,7 +24,6 @@ const styles = {
     }
 }
 const MacOSWall = () => {
-     const containerRef = useRef<HTMLDivElement>(null);
     const windowIds = [1, 2, 3, 4, 5, 6, 7];
     const [zOrder, setZOrder] = useState<number[]>(windowIds);
     const bringToFront = (id: number) => {
@@ -33,6 +35,9 @@ const MacOSWall = () => {
     });
     const statusBarPanel = useSelector((state: RootState) => state.statusbar.statusPanel)
     const photosWindow = useSelector((state:RootState)=>state.window.photosWindow)
+    const musicWindow = useSelector((state:RootState)=>state.window.musicWindow)
+     const terminalWindow = useSelector((state:RootState)=>state.window.terminalWindow)
+      const videosWindow = useSelector((state:RootState)=>state.window.videoWindow)
     return (
         <Stack sx={styles.root}>
             <MacOSNav />
@@ -43,10 +48,33 @@ const MacOSWall = () => {
             {
                 photosWindow && <PhotosWindow 
                  id={1}
-                // containerRef={containerRef}
                 zIndex={zOrder.indexOf(1) + 1}
                 bringToFront={bringToFront}
                 defaultPosition={getWindowPosition(0)}
+                />
+            }
+            {
+                musicWindow && <MusicWindow 
+                id={2}
+                zIndex={zOrder.indexOf(2) + 1}
+                bringToFront={bringToFront}
+                defaultPosition={getWindowPosition(1)}
+                />
+            }
+            {
+                terminalWindow && <TerminalWindow 
+                id={3}
+                zIndex={zOrder.indexOf(3) + 1}
+                bringToFront={bringToFront}
+                defaultPosition={getWindowPosition(2)}
+                />
+            }
+            {
+                videosWindow && <VideosWindow 
+                id={4}
+                zIndex={zOrder.indexOf(4) + 1}
+                bringToFront={bringToFront}
+                defaultPosition={getWindowPosition(3)}
                 />
             }
         </Stack>

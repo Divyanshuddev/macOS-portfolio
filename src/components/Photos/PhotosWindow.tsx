@@ -1,4 +1,4 @@
-import { Button, Divider, Stack } from "@mui/material"
+import {  Divider, Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
