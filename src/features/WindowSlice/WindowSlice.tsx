@@ -1,65 +1,81 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface WindowState{
-    photosWindow:boolean;
-    musicWindow:boolean;
-    vscodeWindow:boolean;
-    terminalWindow:boolean;
-    videoWindow:boolean;
-    resumeWindow:boolean;
+export interface WindowState {
+    photosWindow: boolean;
+    musicWindow: boolean;
+    vscodeWindow: boolean;
+    terminalWindow: boolean;
+    videoWindow: boolean;
+    resumeWindow: boolean;
+    currentTab:string;
 }
 
-const initialState:WindowState={
-     photosWindow:false,
-    musicWindow:false,
-    vscodeWindow:false,
-    terminalWindow:false,
-    videoWindow:false,
-    resumeWindow:false,
+const initialState: WindowState = {
+    photosWindow: false,
+    musicWindow: false,
+    vscodeWindow: false,
+    terminalWindow: false,
+    videoWindow: false,
+    resumeWindow: false,
+    currentTab:"home.tsx",
 }
 
-export const windowSlice=createSlice({
-    name:"window",
+export const windowSlice = createSlice({
+    name: "window",
     initialState,
-    reducers:{
-        openWindow:(state,action)=>{
-            switch(action.payload){
+    reducers: {
+        openWindow: (state, action) => {
+            switch (action.payload) {
                 case "Photos":
-                    state.photosWindow=true
+                    state.photosWindow = true
                     return
                 case "Music":
-                    state.musicWindow=true
+                    state.musicWindow = true
                     return
                 case "Terminal":
-                    state.terminalWindow=true
+                    state.terminalWindow = true
                     return
                 case "Videos":
-                    state.videoWindow=true
+                    state.videoWindow = true
+                    return
+                case "Resume":
+                    state.resumeWindow = true
+                    return
+                case "VS Code":
+                    state.vscodeWindow=true
                     return
                 default:
                     return
             }
         },
-        closeWindow:(state,action)=>{
-            switch(action.payload){
+        closeWindow: (state, action) => {
+            switch (action.payload) {
                 case "Photos":
-                    state.photosWindow=false
+                    state.photosWindow = false
                     return
                 case "Music":
-                    state.musicWindow=false
+                    state.musicWindow = false
                     return
                 case "Terminal":
-                    state.terminalWindow=false
+                    state.terminalWindow = false
                     return
                 case "Videos":
-                    state.videoWindow=false
+                    state.videoWindow = false
+                    return
+                case "Resume":
+                    state.resumeWindow = false
+                    return
+                case "VS Code":
+                    state.vscodeWindow=false
                     return
                 default:
                     return
             }
+        },
+        setCurrentTab:(state,action)=>{
+            state.currentTab=action.payload
         }
     }
 })
-
-export const {openWindow,closeWindow} = windowSlice.actions
+export const { openWindow, closeWindow,setCurrentTab} = windowSlice.actions
 export default windowSlice.reducer

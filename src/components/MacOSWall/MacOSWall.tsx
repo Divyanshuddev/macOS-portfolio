@@ -10,6 +10,8 @@ import PhotosWindow from "../Photos/PhotosWindow"
 import MusicWindow from "../Music/MusicWindow"
 import TerminalWindow from "../Terminal/TerminalWindow"
 import VideosWindow from "../Videos/VideosWindow"
+import ResumeWindow from "../Resume/ResumeWindow"
+import VSCodeWindow from "../VSCode/VSCodeWindow"
 const styles = {
     root: {
         width: "100vw",
@@ -38,6 +40,8 @@ const MacOSWall = () => {
     const musicWindow = useSelector((state:RootState)=>state.window.musicWindow)
      const terminalWindow = useSelector((state:RootState)=>state.window.terminalWindow)
       const videosWindow = useSelector((state:RootState)=>state.window.videoWindow)
+      const resumeWindow = useSelector((state:RootState)=>state.window.resumeWindow)
+      const vscodeWindow = useSelector((state:RootState)=>state.window.vscodeWindow)
     return (
         <Stack sx={styles.root}>
             <MacOSNav />
@@ -75,6 +79,22 @@ const MacOSWall = () => {
                 zIndex={zOrder.indexOf(4) + 1}
                 bringToFront={bringToFront}
                 defaultPosition={getWindowPosition(3)}
+                />
+            }
+            {
+                resumeWindow && <ResumeWindow 
+                id={5}
+                zIndex={zOrder.indexOf(5) + 1}
+                bringToFront={bringToFront}
+                defaultPosition={getWindowPosition(4)}
+                />
+            }
+            {
+                vscodeWindow && <VSCodeWindow 
+                id={6}
+                zIndex={zOrder.indexOf(6) + 1}
+                bringToFront={bringToFront}
+                defaultPosition={getWindowPosition(0)}
                 />
             }
         </Stack>
